@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <!-- Webpage title -->
+    <title>Super Marcket</title>
+
+    <!-- Meta data -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- External Style Sheet (Bootstrap) -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <!-- 구글폰트 -->
+    <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
+
+    <!-- Internal Style Sheet -->
+    <style type="text/css">
+        header {
+            padding-top: 10px;
+            height: 120px;
+            background-color: teal;
+        }
+
+        .title {
+            text-align: center;
+            color: white;
+        }
+
+        section {
+            width: max-content;
+            margin: auto;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .img {
+            background-image: url('https://file.namu.moe/file/8bc9e381797334eb33da66e3ba501be106009616afd74ba985a6caa56a355871d333a0ef172a5ad1e734488a1a2ba88f6978bba7e4dce15f6ea98779175a9a2f');
+            background-size:cover;
+            background-position: center;
+            width: 520px;
+            height: 350px;
+        }
+
+        h5, #dollar-rate {
+            display: inline;
+        }
+
+        #dollar-rate {
+            text-decoration: underline;
+            color:teal;
+        }
+        
+    </style>
+
+    <script>
+        $(document).ready(function() {
+            // 창을 새로고침 할 때마다
+            $.ajax({
+                type: "GET",
+                url: "https://api.manana.kr/exchange/rate.json",
+                data: {},
+                success: function(res) {
+                    dInfo = res[1];
+                    dRate = dInfo.rate;
+
+                    $(`#dollar-rate`).append(`환율 : ${dRate}`);
+                }
+            })
+        });
+
+        function clickBtnOrder() {
+            if($(`#order-name`).val() == ""){
+                alert('이름을 입력하세요.');
+            }
+            else if($(`#order-count`).val() == ""){
+                alert('수량을 입력하세요.');
+            }
+            else if($(`#order-address`).val() == ""){
+                alert('주소를 입력하세요.');
+            }
+            else if($(`#order-phone`).val() == ""){
+                alert('전화번호를 입력하세요.');
+            }
+            else{
+                alert('주문이 완료 되었습니다.');
+            }
+        }
+
+    </script>
+
+</head>
+
+<body>
+    <header>
+        <div class="title">
+            <h1>Zuper Marcket</h1>
+            <h4>more convenient, cheapest</h4>
+        </div>
+    </header>
+
+    <section>
+        <div class="img"></div>
+        <div calss="proInfo" style="padding-top: 30px;">
+            <h1>꿀 가득 사과 </h1>
+            <h5>가격: $ 3.0 (6개 한 묶음)</h5>
+            <span id="dollar-rate"></span>
+            <p>
+                <br>
+                <b>an Apple a day keeps the Doctor away..!</b><br>
+                매일 하나씩 먹으면 의사를 멀리한다는 속담이 있을 정도로 유명한 가을 과일, 사과!!<br>
+                <br>
+                흔히들 아침 사과는 금사과고 저녁 사과는 독사과라고 하지만,<br>사실 언제 먹어도 항상 금사과랍니다.<br>
+                그리고 아침에 잠을 깨는 데에도 큰 도움이 됩니다.<br>앞으로 커피 대신 사과 한 개씩 먹어보세요!! :)
+            </p>
+        </div>
+        <hr>
+        <div class="orderInfo">
+            <h4 style="padding-bottom: 10px;">Thank you for your order !!</h4>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">이름</span>
+                </div>
+                <input type="text" class="form-control" id="order-name">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text">수량</label>
+                </div>
+                <select class="custom-select" id="order-count">
+                    <option selected value=""> -- 묶음으로 구입 가능합니다. --</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="3">4</option>
+                    <option value="3">5</option>
+                </select>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">주소</span>
+                </div>
+                <input type="text" class="form-control" id="order-address">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">전화번호</span>
+                </div>
+                <input type="text" class="form-control" id="order-phone">
+            </div>
+            <div class="order">
+                <button onclick="clickBtnOrder()" type="button" class="btn btn-warning">주문하기</button>
+            </div>
+        </div>
+    </section>
+
+</body>
+
+</html>
